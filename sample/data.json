@@ -1,0 +1,347 @@
+{
+    "height": 597317,
+    "txhash": "C9802542E508C1805C913CCAA6340D93E53C2752E6C7833978DDB945560CB45E",
+    "codespace": "",
+    "code": 0,
+    "data": "0A1B0A192F6F7261636C652E76312E4D73675265717565737444617461",
+    "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/oracle.v1.MsgRequestData\"}]},{\"type\":\"raw_request\",\"attributes\":[{\"key\":\"data_source_id\",\"value\":\"251\"},{\"key\":\"data_source_hash\",\"value\":\"878999e487dd7c31c9d64468989f42bdd78fdc5cd03b464c9152dd8d0331f8f4\"},{\"key\":\"external_id\",\"value\":\"6\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"231\"},{\"key\":\"data_source_hash\",\"value\":\"fa899f65777a9f4cacc991dfb8cc834a9a07e1a6d3f0980fb49cc0a2b30ac900\"},{\"key\":\"external_id\",\"value\":\"0\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"252\"},{\"key\":\"data_source_hash\",\"value\":\"b294d74f09e39bdd12a070bfac16930a2dc22c391596e5157fe23fc129573d49\"},{\"key\":\"external_id\",\"value\":\"10\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"229\"},{\"key\":\"data_source_hash\",\"value\":\"804d670af8594d2fcc6a6289e0a21a5040113001cf474a7ed9783c0f5706fdbd\"},{\"key\":\"external_id\",\"value\":\"13\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"235\"},{\"key\":\"data_source_hash\",\"value\":\"de83122aa01ad604c101d15a9b16ce2325d828846e5e48dc8389d0dcecb92fa6\"},{\"key\":\"external_id\",\"value\":\"5\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"224\"},{\"key\":\"data_source_hash\",\"value\":\"5f31343683b8ff8b774711e6644c8377f3d092782174847cdb78ed4a990b9794\"},{\"key\":\"external_id\",\"value\":\"11\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"226\"},{\"key\":\"data_source_hash\",\"value\":\"b1a7c21a999cc196a78f5ea81219054e31e7e06bc2a36005e16a655d66338259\"},{\"key\":\"external_id\",\"value\":\"2\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"234\"},{\"key\":\"data_source_hash\",\"value\":\"4840ef7b0c432687426bbb6d2c99f10b539b2eb7cc3e18e4b96c72171e996fcf\"},{\"key\":\"external_id\",\"value\":\"4\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"225\"},{\"key\":\"data_source_hash\",\"value\":\"e610b043001c217368c284702d99fc04e18e815dbdda0de6658ca5ef7fa6c06f\"},{\"key\":\"external_id\",\"value\":\"9\"},{\"key\":\"calldata\",\"value\":\"ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"228\"},{\"key\":\"data_source_hash\",\"value\":\"c84973ef3b156483fb8210ee311158aa98fcdfb943ae938992e663fd3bb7b645\"},{\"key\":\"external_id\",\"value\":\"12\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"236\"},{\"key\":\"data_source_hash\",\"value\":\"b4726d7430f5ee704d1c58cf64f6cfff407aea6831283589f5d91216f666cc68\"},{\"key\":\"external_id\",\"value\":\"7\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"232\"},{\"key\":\"data_source_hash\",\"value\":\"a44f101e54726a4c691e9bfa4b406f51a6fe193eac3fae6dc98c1ca200876773\"},{\"key\":\"external_id\",\"value\":\"8\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"230\"},{\"key\":\"data_source_hash\",\"value\":\"ef08052fb71ecb89e7d9a545efa19742d7a80a93f5e448927bb77748781eefa4\"},{\"key\":\"external_id\",\"value\":\"1\"},{\"key\":\"calldata\",\"value\":\"ETH USDC\"},{\"key\":\"fee\"}]},{\"type\":\"request\",\"attributes\":[{\"key\":\"id\",\"value\":\"66700\"},{\"key\":\"client_id\",\"value\":\"from_bandchain.js\"},{\"key\":\"oracle_script_id\",\"value\":\"111\"},{\"key\":\"calldata\",\"value\":\"000000020000000345544800000004555344430000000000000064\"},{\"key\":\"ask_count\",\"value\":\"4\"},{\"key\":\"min_count\",\"value\":\"3\"},{\"key\":\"gas_used\",\"value\":\"86546\"},{\"key\":\"total_fees\"},{\"key\":\"validator\",\"value\":\"bandvaloper1xwrry9srz20qffrsnukw5zrnd4l2unzu9u766n\"},{\"key\":\"validator\",\"value\":\"bandvaloper1kxqs9pguxj2awqfl6r837e8kd5affw9gffxz0h\"},{\"key\":\"validator\",\"value\":\"bandvaloper16mp6ey8ljqgtjxv93mwxu3ucfdnprt92z6hexh\"},{\"key\":\"validator\",\"value\":\"bandvaloper1lylssnp38wcxke592d7ethzzr4av273yu5xy3u\"}]}]}]",
+    "logsList": [
+        {
+            "msgIndex": 0,
+            "log": "",
+            "eventsList": [
+                {
+                    "type": "message",
+                    "attributesList": [
+                        {
+                            "key": "action",
+                            "value": "/oracle.v1.MsgRequestData"
+                        }
+                    ]
+                },
+                {
+                    "type": "raw_request",
+                    "attributesList": [
+                        {
+                            "key": "data_source_id",
+                            "value": "251"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "878999e487dd7c31c9d64468989f42bdd78fdc5cd03b464c9152dd8d0331f8f4"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "6"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "231"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "fa899f65777a9f4cacc991dfb8cc834a9a07e1a6d3f0980fb49cc0a2b30ac900"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "0"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "252"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "b294d74f09e39bdd12a070bfac16930a2dc22c391596e5157fe23fc129573d49"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "10"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "229"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "804d670af8594d2fcc6a6289e0a21a5040113001cf474a7ed9783c0f5706fdbd"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "13"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "235"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "de83122aa01ad604c101d15a9b16ce2325d828846e5e48dc8389d0dcecb92fa6"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "5"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "224"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "5f31343683b8ff8b774711e6644c8377f3d092782174847cdb78ed4a990b9794"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "11"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "226"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "b1a7c21a999cc196a78f5ea81219054e31e7e06bc2a36005e16a655d66338259"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "2"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "234"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "4840ef7b0c432687426bbb6d2c99f10b539b2eb7cc3e18e4b96c72171e996fcf"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "4"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "225"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "e610b043001c217368c284702d99fc04e18e815dbdda0de6658ca5ef7fa6c06f"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "9"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "228"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "c84973ef3b156483fb8210ee311158aa98fcdfb943ae938992e663fd3bb7b645"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "12"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "236"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "b4726d7430f5ee704d1c58cf64f6cfff407aea6831283589f5d91216f666cc68"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "7"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "232"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "a44f101e54726a4c691e9bfa4b406f51a6fe193eac3fae6dc98c1ca200876773"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "8"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        },
+                        {
+                            "key": "data_source_id",
+                            "value": "230"
+                        },
+                        {
+                            "key": "data_source_hash",
+                            "value": "ef08052fb71ecb89e7d9a545efa19742d7a80a93f5e448927bb77748781eefa4"
+                        },
+                        {
+                            "key": "external_id",
+                            "value": "1"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "ETH USDC"
+                        },
+                        {
+                            "key": "fee",
+                            "value": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "request",
+                    "attributesList": [
+                        {
+                            "key": "id",
+                            "value": "66700"
+                        },
+                        {
+                            "key": "client_id",
+                            "value": "from_bandchain.js"
+                        },
+                        {
+                            "key": "oracle_script_id",
+                            "value": "111"
+                        },
+                        {
+                            "key": "calldata",
+                            "value": "000000020000000345544800000004555344430000000000000064"
+                        },
+                        {
+                            "key": "ask_count",
+                            "value": "4"
+                        },
+                        {
+                            "key": "min_count",
+                            "value": "3"
+                        },
+                        {
+                            "key": "gas_used",
+                            "value": "86546"
+                        },
+                        {
+                            "key": "total_fees",
+                            "value": ""
+                        },
+                        {
+                            "key": "validator",
+                            "value": "bandvaloper1xwrry9srz20qffrsnukw5zrnd4l2unzu9u766n"
+                        },
+                        {
+                            "key": "validator",
+                            "value": "bandvaloper1kxqs9pguxj2awqfl6r837e8kd5affw9gffxz0h"
+                        },
+                        {
+                            "key": "validator",
+                            "value": "bandvaloper16mp6ey8ljqgtjxv93mwxu3ucfdnprt92z6hexh"
+                        },
+                        {
+                            "key": "validator",
+                            "value": "bandvaloper1lylssnp38wcxke592d7ethzzr4av273yu5xy3u"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "info": "",
+    "gasWanted": 1000000,
+    "gasUsed": 553247,
+    "timestamp": ""
+}

@@ -1,26 +1,27 @@
 import { Client, Wallet, Obi, Message, Coin, Transaction, Fee }  from '@bandprotocol/bandchain.js'
 import { PrivateKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import axios from 'axios'
+import fs from 'fs'
 
 const grpcUrl = 'https://laozi-testnet5.bandchain.org/grpc-web'
 const BAND_FAUCET_ENDPOINT = 'https://laozi-testnet5.bandchain.org/faucet'
 const client = new Client(grpcUrl)
 
 export const initWallet = (Mnemonic:string,accountIndex = 0) => {
-    const DERIVATION_PATH = `m/44'/494'/0'/0/${accountIndex}`
+    const DERIVATION_PATH = `m/44'/118'/0'/0/${accountIndex}`
 
     const { PrivateKey } = Wallet
     const privateKey = PrivateKey.fromMnemonic(Mnemonic,DERIVATION_PATH)
     return privateKey
 }
 
-export const makeRequest = async (privkey:PrivateKey) => {
+export const makeRequestStd = async (privkey:PrivateKey) => {
     const pubkey = privkey.toPubkey()
     const sender = pubkey.toAddress().toAccBech32()
 
     // Step 2.1: Prepare oracle request's properties
     const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
-    const calldata = obi.encodeInput({ symbols: ['ETH'], multiplier: 100 })
+    const calldata = obi.encodeInput({ symbols: ['ETH','USDC'], multiplier: 100 })
 
     const oracleScriptId = 111
     const askCount = 4
@@ -71,7 +72,9 @@ export const makeRequest = async (privkey:PrivateKey) => {
     const txRawBytes = txn.getTxData(signature, pubkey)
 
     // Step 4: Broadcast the transaction
-    return await client.sendTxBlockMode(txRawBytes)
+    const response = await client.sendTxBlockMode(txRawBytes)
+    fs.writeFileSync("./data.json",JSON.stringify(response))
+    return response
 }
 
 export const getFaucet = async (address:string,amount:string) => {
@@ -120,4 +123,16 @@ export const signAndSendBlock = async (tx:Transaction,privkey:PrivateKey) => {
      // Send the transaction
      const response = await client.sendTxBlockMode(signedTx)
      return response
+}
+
+export const getReferenceData = async (pairs:string[]) => {
+    const minCount = 3
+    const askCount = 4
+    return await client.getReferenceData(pairs, minCount, askCount)
+}
+
+export const getRequestResult = async (id:number) => {
+    const response = await client.getRequestById(id)
+    const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
+    return obi.decodeOutput(Buffer.from(response.result.result as string, "base64"))
 }

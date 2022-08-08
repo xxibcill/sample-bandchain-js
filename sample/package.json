@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "ibc": "ts-node src/IBC.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@bandprotocol/bandchain.js": "^2.1.4",
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "moment": "^2.29.4"
   }
 }
