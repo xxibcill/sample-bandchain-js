@@ -1,2 +1,6 @@
 # sample-bandchain-js
-example for bandchain.js usage
+
+sample -> non-UI code Example
+app -> UI implementation
+
+
