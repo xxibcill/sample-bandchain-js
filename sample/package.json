@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "ibc": "ts-node src/IBC.ts"
+    "ibc": "ts-node src/IBC.ts",
+    "ledger": "ts-node src/ledger.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",
