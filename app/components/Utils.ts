@@ -1,10 +1,12 @@
 import { Client, Wallet, Obi, Message, Coin, Transaction, Fee }  from '@bandprotocol/bandchain.js'
-import { PrivateKey } from '@bandprotocol/bandchain.js/lib/wallet'
+import { Ledger, PrivateKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import axios from 'axios'
 import fs from 'fs'
 
 const grpcUrl = 'https://laozi-testnet5.bandchain.org/grpc-web'
 const BAND_FAUCET_ENDPOINT = 'https://laozi-testnet5.bandchain.org/faucet'
+const client = new Client(grpcUrl)
+
 
 export const initWallet = (Mnemonic:string,accountIndex = 0) => {
     const DERIVATION_PATH = `m/44'/118'/0'/0/${accountIndex}`
@@ -15,8 +17,7 @@ export const initWallet = (Mnemonic:string,accountIndex = 0) => {
 }
 
 export const makeRequestStd = async (privkey:PrivateKey) => {
-const client = new Client(grpcUrl)
-const pubkey = privkey.toPubkey()
+    const pubkey = privkey.toPubkey()
     const sender = pubkey.toAddress().toAccBech32()
 
     // Step 2.1: Prepare oracle request's properties
@@ -88,7 +89,10 @@ export const getFaucet = async (address:string,amount:string) => {
 }
 
 export const makeSendCoinTx = async (sender:string,receiver:string,amount:string) => {
-    const client = new Client(grpcUrl)
+    console.log(sender);
+    console.log(receiver);
+    console.log(amount);
+    
     // Here we use different message type, which is MsgSend
     const sendAmount = new Coin()
     sendAmount.setDenom('uband')
@@ -115,8 +119,7 @@ export const makeSendCoinTx = async (sender:string,receiver:string,amount:string
 }
 
 export const signAndSendBlock = async (tx:Transaction,privkey:PrivateKey) => {
-const client = new Client(grpcUrl)
-// Sign the transaction
+     // Sign the transaction
      const pubkey = privkey.toPubkey()
      const txSignData = tx.getSignDoc(pubkey)
      const signature = privkey.sign(txSignData)
@@ -127,16 +130,36 @@ const client = new Client(grpcUrl)
      return response
 }
 
+export const signAndSendWithLedger = async (tx:Transaction ,ledger:Ledger) => {
+    const {pubKey} = await ledger.getPubKeyAndBech32Address()
+    // Sign a message with Ledger device
+    const signature = await ledger.sign(tx)
+    const signedTx = tx.getTxData(signature, pubKey, 127)
+
+    // Create a transaction
+    const response = await client.sendTxBlockMode(signedTx)
+    return response
+}
+
 export const getReferenceData = async (pairs:string[]) => {
-const client = new Client(grpcUrl)
-const minCount = 3
+    const minCount = 3
     const askCount = 4
     return await client.getReferenceData(pairs, minCount, askCount)
 }
 
 export const getRequestResult = async (id:number) => {
-const client = new Client(grpcUrl)
-const response = await client.getRequestById(id)
-    const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
-    return obi.decodeOutput(Buffer.from(response.result.result as string, "base64"))
+    client.getRequestById(id)
+    .then( response => {
+        const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
+        if(response.result){
+            return obi.decodeOutput(Buffer.from(response.result.result as string, "base64"))
+        }
+        else{
+            return ""
+        }
+    })
+    .catch((err) => {
+        return err
+    })
 }
+

@@ -1,28 +1,37 @@
-import { useState } from 'react'
-import { Ledger } from '@bandprotocol/bandchain.js/lib/wallet'
+import { useContext, useState } from "react";
+import { Ledger } from "@bandprotocol/bandchain.js/lib/wallet";
+import { LedgerContext } from "./useLedger";
 
 const ConnectWallet = () => {
+  const {ledger, setLedger} = useContext(LedgerContext);
+  const [address, setAddress] = useState("");
+  const [transactionResult, setTransactionResult] = useState();
 
-  const [ledger,setLedger] = useState<Ledger>()
-  const [address,setAddress] = useState("")
-  
   const handleClick = async () => {
-    const res = await Ledger.connectLedgerWeb()
-    console.log(res);
-    setLedger(res)
-    const addressObject = await res.getPubKeyAndBech32Address()
-    setAddress(addressObject.bech32_address)
-  }
+    try {
+      const res = await Ledger.connectLedgerWeb();
+      setLedger(res);
+      try {
+        const addressObject = await res.getPubKeyAndBech32Address();
+        setAddress(addressObject.bech32_address);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
-      <h1>{address}</h1>
-      {
-        ledger ? <div></div> : <button onClick={handleClick}>connect</button>
-      }
-      
+      <h4>{address}</h4>
+      {ledger ? (
+        null
+      ) : (
+        <button onClick={handleClick}>connect</button>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ConnectWallet
+export default ConnectWallet;
