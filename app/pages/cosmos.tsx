@@ -3,7 +3,8 @@ import styles from '../styles/Home.module.css'
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 import AppBtc from "@ledgerhq/hw-app-btc";
 import { useState } from 'react';
-import CosmosApp from 'ledger-cosmos-js'
+const CosmosApp = require('ledger-cosmos-js')
+// import CosmosApp from 'ledger-cosmos-js'
 
 const DEFAULT_DERIVATION_PATH_LEDGER = "m/44'/118'/0'/0/0"
 
