@@ -1,0 +1,14 @@
+.container {
+    padding: 0 2rem;
+  }
+  
+  .buttonGroup{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .button{
+    max-width: 150px;
+    margin: 5px 10px;
+  }

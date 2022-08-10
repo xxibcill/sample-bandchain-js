@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import {
     Toolbar,
     Button,
@@ -11,6 +12,9 @@ import ConnectWalletButton from '../components/ConnectWalletButton'
 function Header() {
   return (
     <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Link href="/cosmos">
+          <a>Cosmos Ver.</a>
+        </Link>
         <Typography
           component="h2"
           variant="h5"

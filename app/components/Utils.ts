@@ -3,7 +3,8 @@ import { Ledger, PrivateKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import axios from 'axios'
 import fs from 'fs'
 
-const grpcUrl = 'https://laozi-testnet5.bandchain.org/grpc-web'
+// const grpcUrl = 'https://laozi-testnet5.bandchain.org/grpc-web'
+const grpcUrl = 'https://laozi1.bandchain.org/grpc-web'
 const BAND_FAUCET_ENDPOINT = 'https://laozi-testnet5.bandchain.org/faucet'
 const client = new Client(grpcUrl)
 
@@ -141,9 +142,7 @@ export const signAndSendWithLedger = async (tx:Transaction ,ledger:Ledger) => {
     return response
 }
 
-export const getReferenceData = async (pairs:string[]) => {
-    const minCount = 3
-    const askCount = 4
+export const getReferenceData = async (pairs:string[],minCount=10,askCount=16) => {
     return await client.getReferenceData(pairs, minCount, askCount)
 }
 
