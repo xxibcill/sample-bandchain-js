@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "ibc": "ts-node src/IBC.ts",
-    "ledger": "ts-node src/ledger.ts"
+    "ledger": "ts-node src/ledger.ts",
+    "deployos": "ts-node src/deployos.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",
