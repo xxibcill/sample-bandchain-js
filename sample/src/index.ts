@@ -14,8 +14,8 @@ const MNEMONIC = "brown kite lady anger income eager left since brown cruise arc
 (async () => {
     const privKey1 = initWallet(MNEMONIC)
     const privKey2 = initWallet(MNEMONIC,1)
-    // console.log(privKey1.toPubkey().toAddress().toAccBech32());
-    // console.log(privKey2.toPubkey().toAddress().toAccBech32());
+    console.log(privKey1.toPubkey().toAddress().toAccBech32());
+    console.log(privKey2.toPubkey().toAddress().toAccBech32());
 
     // const grpcUrl = 'https://laozi1.bandchain.org/grpc-web'
     // const client = new Client(grpcUrl)

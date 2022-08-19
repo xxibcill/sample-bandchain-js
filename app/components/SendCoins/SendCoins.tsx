@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { makeSendCoinTx, signAndSendWithLedger } from "./Utils";
-import { LedgerContext } from './useLedger';
+import { makeSendCoinTx, signAndSendWithLedger } from "../Utils";
+import { LedgerContext } from '../useLedger';
 
 const SendCoins = () => {
     const {ledger, setLedger} = useContext(LedgerContext);

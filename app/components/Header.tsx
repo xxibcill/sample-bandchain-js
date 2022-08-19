@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import {
     Toolbar,
@@ -7,9 +7,16 @@ import {
     Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import ConnectWalletButton from '../components/ConnectWalletButton'
+import ConnectLedgerButton from './ConnectLedgerButton'
+import ConnectWalletButton from './ConnectWalletButton'
+import { WalletContext } from './useWallet';
+import { LedgerContext } from './useLedger';
 
 function Header() {
+  const {mnemonic, setMnemonic} = useContext(WalletContext);
+  const {ledger, setLedger} = useContext(LedgerContext);
+
+  
   return (
     <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Link href="/cosmos">
@@ -28,7 +35,8 @@ function Header() {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <ConnectWalletButton/>
+        {(mnemonic || !(mnemonic || ledger)) ? <ConnectWalletButton/> : null}
+        {(ledger || !(mnemonic || ledger)) ? <ConnectLedgerButton/> : null}
     </Toolbar>
   )
 }
