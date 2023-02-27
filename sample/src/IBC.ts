@@ -2,8 +2,10 @@ import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/b
 import moment from 'moment'
 
 const { PrivateKey } = Wallet
-const client = new Client('https://laozi-testnet5.bandchain.org/grpc-web')
-const privkey = PrivateKey.fromMnemonic('brown kite lady anger income eager left since brown cruise arch danger')
+const client = new Client('https://laozi-testnet6.bandchain.org/grpc-web')
+const privkey = PrivateKey.fromMnemonic(
+  'brown kite lady anger income eager left since brown cruise arch danger'
+)
 
 const pubkey = privkey.toPubkey()
 const sender = pubkey.toAddress().toAccBech32()
@@ -20,7 +22,7 @@ const sendCoinIbc = async () => {
   sendAmount.setAmount('10')
   const timeoutTimestamp = moment().unix() + 600 * 1e9 // timeout in 10 mins
 
-//   constructor(sourcePort: string,sourceChannel: string,sender: string,receiver: string,token: Coin,timeoutTimestamp: number)
+  //   constructor(sourcePort: string,sourceChannel: string,sender: string,receiver: string,token: Coin,timeoutTimestamp: number)
   const msg = new MsgTransfer(
     sourcePort,
     sourceChannel,
@@ -32,7 +34,7 @@ const sendCoinIbc = async () => {
 
   // Step 2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')

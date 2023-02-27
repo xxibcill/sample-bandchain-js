@@ -40,10 +40,7 @@ declare module 'ledger-cosmos-js' {
   class CosmosApp {
     constructor(transport: Transport<string>)
     appInfo(): Promise<AppInfo>
-    getAddressAndPubKey(
-      hdPath: number[],
-      prefix: string,
-    ): Promise<AddressAndPublicKey>
+    getAddressAndPubKey(hdPath: number[], prefix: string): Promise<AddressAndPublicKey>
     getVersion(): Promise<Version>
     sign(hdPath: number[], signData: string): Promise<Sign>
   }
