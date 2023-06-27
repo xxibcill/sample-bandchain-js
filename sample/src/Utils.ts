@@ -2,6 +2,7 @@ import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from '@bandproto
 import { PrivateKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import axios from 'axios'
 import fs from 'fs'
+import { signTx } from './tx'
 
 const grpcUrl = 'https://laozi-testnet6.bandchain.org/grpc-web'
 const BAND_FAUCET_ENDPOINT = 'https://laozi-testnet6.bandchain.org/faucet'
@@ -58,6 +59,7 @@ export const makeRequestStd = async (privkey: PrivateKey) => {
     .withFee(fee)
     .withMemo('')
     .withChainId(chainId)
+
   await txn.withSender(client, sender)
 
   // prepare transaction for signed
@@ -99,7 +101,7 @@ export const makeSendCoinTx = async (sender: string, receiver: string, amount: s
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
-  feeCoin.setAmount('1000')
+  feeCoin.setAmount('10000')
 
   const fee = new Fee()
   fee.setAmountList([feeCoin])
@@ -117,12 +119,17 @@ export const signAndSendBlock = async (tx: Transaction, privkey: PrivateKey) => 
   // Sign the transaction
   const pubkey = privkey.toPubkey()
   const txSignData = tx.getSignDoc(pubkey)
-  const signature = privkey.sign(txSignData)
-  const signedTx = tx.getTxData(signature, pubkey)
+  console.log(txSignData)
 
-  // Send the transaction
-  const response = await client.sendTxBlockMode(signedTx)
-  return response
+  const signature = privkey.sign(txSignData)
+  console.log(signature)
+
+  const signedTx = tx.getTxData(signature, pubkey)
+  console.log(signedTx)
+
+  // // Send the transaction
+  // const response = await client.sendTxBlockMode(signedTx)
+  return signedTx
 }
 
 export const getReferenceData = async (pairs: string[]) => {
@@ -137,4 +144,12 @@ export const getRequestResult = async (id: number) => {
   const response = await client.getRequestById(id)
   const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
   return obi.decodeOutput(Buffer.from(response.result.result as string, 'base64'))
+}
+
+export const test = async () => {
+  const client = new Client(grpcUrl)
+  const response = await client.sendTxBlockMode(signTx)
+  console.log(signTx)
+
+  return response
 }
