@@ -3,8 +3,9 @@
 import { cosmos, InstallError } from '@cosmostation/extension-client'
 import { Button, Box, styled } from '@mui/material'
 import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from '@bandprotocol/bandchain.js'
-import { Address, PublicKey } from '@bandprotocol/bandchain.js/lib/wallet'
+import { Address, Ledger, PublicKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import { SignDoc } from '@bandprotocol/bandchain.js/proto/cosmos/tx/v1beta1/tx_pb'
+import { Msg } from '@cosmostation/extension-client/types/message'
 
 const FullContainer = styled(Box)({
   display: 'flex',
@@ -25,6 +26,7 @@ export default () => {
       const provider = await cosmos()
       const supportedChains = await provider.getSupportedChains()
       const account = await provider.getAccount('bandtestnet')
+      const accountClient = await client.getAccount(account.address)
       console.log(supportedChains)
       console.log(account)
       console.log('end')
@@ -51,11 +53,7 @@ export default () => {
         100000
       )
 
-      const sendMsg = new Message.MsgSend(
-        'band1zv4qrj04u8v9fg9a59gfpld0l0g6w9xeuypyxr',
-        'band1zv4qrj04u8v9fg9a59gfpld0l0g6w9xeuypyxr',
-        [coin]
-      )
+      const sendMsg = new Message.MsgSend(account.address, account.address, [coin])
 
       const fee = new Fee()
       fee.setAmountList([feeCoin])
@@ -81,20 +79,54 @@ export default () => {
       console.log(deserializedSignDoc.getAuthInfoBytes())
       console.log(deserializedSignDoc.getBodyBytes())
 
-      const response = await provider.signDirect(
-        'bandtestnet',
-        {
-          chain_id: deserializedSignDoc.getChainId(),
-          account_number: deserializedSignDoc.getAccountNumber().toString(),
-          auth_info_bytes: deserializedSignDoc.getAuthInfoBytes_asU8(),
-          body_bytes: deserializedSignDoc.getBodyBytes_asU8(),
+      const aminoSignDoc = {
+        chain_id: chainId,
+        account_number: accountClient.accountNumber.toString(),
+        sequence: accountClient.sequence.toString(),
+        fee: {
+          amount: [
+            {
+              denom: 'uband',
+              amount: '50000',
+            },
+          ],
+          gas: '200000',
         },
-        undefined
-      )
+        msgs: [sendMsg.toJSON() as Msg],
+        memo: '',
+      }
 
+      // const response = await provider.signDirect(
+      //   'bandtestnet',
+      //   {
+      //     chain_id: deserializedSignDoc.getChainId(),
+      //     account_number: deserializedSignDoc.getAccountNumber().toString(),
+      //     auth_info_bytes: deserializedSignDoc.getAuthInfoBytes_asU8(),
+      //     body_bytes: deserializedSignDoc.getBodyBytes_asU8(),
+      //   },
+      //   undefined
+      // )
+
+      const getSignDoc = (tx: Transaction) => ({
+        account_number: tx.accountNum?.toString() as string,
+        chain_id: tx.chainId as string,
+        fee: {
+          amount: tx.fee.getAmountList().map((coin) => coin.toObject()),
+          gas: tx.fee.getGasLimit().toString(),
+        },
+        memo: tx.memo,
+        msgs: tx.msgs.map((msg) => msg.toJSON()) as Msg<unknown>[],
+        sequence: tx.sequence?.toString() as string,
+      })
+
+      const response = await provider.signAmino('bandtestnet', getSignDoc(txn))
       console.log(response.signature)
+      // const ledger = await Ledger.connectLedgerWeb()
+      // const ledgerSig = await ledger.sign(txn)
+      // console.log(ledgerSig.toString('base64'))
 
-      const txRawBytes = txn.getTxData(Buffer.from(response.signature, 'base64'), pubKey, 1)
+      const txRawBytes = txn.getTxData(Buffer.from(response.signature, 'base64'), pubKey, 127)
+      // const txRawBytes = txn.getTxData(ledgerSig, pubKey, 127)
 
       // // Step 4: Broadcast the transaction
       const sendTx = await client.sendTxBlockMode(txRawBytes)

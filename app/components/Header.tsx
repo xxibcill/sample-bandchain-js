@@ -13,9 +13,7 @@ function Header() {
 
   return (
     <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Link href="/cosmos">
-        <a>Cosmos Ver.</a>
-      </Link>
+      <Link href="/cosmos">Cosmos Ver</Link>
       <Typography
         component="h2"
         variant="h5"

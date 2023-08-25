@@ -7,6 +7,7 @@ import { Address, PublicKey } from '@bandprotocol/bandchain.js/lib/wallet'
 import { SignDoc } from '@bandprotocol/bandchain.js/proto/cosmos/tx/v1beta1/tx_pb'
 import Long from 'long'
 import { useEffect, useState } from 'react'
+import { Coin as keplrCoin, Msg } from '@keplr-wallet/types'
 
 const FullContainer = styled(Box)({
   display: 'flex',
@@ -46,23 +47,22 @@ export default () => {
     try {
       console.log('sign')
 
-      const { PrivateKey } = Wallet
-      const mnemonic =
-        'father alert token begin soap appear demise leader else inhale squirrel rich'
-      const privateKey = PrivateKey.fromMnemonic(mnemonic, "m/44'/118'/0'/0/0")
-      const pubkey = privateKey.toPubkey()
-      const sender = pubkey.toAddress().toAccBech32()
-      console.log(sender)
+      // const { PrivateKey } = Wallet
+      // const mnemonic =
+      //   'father alert token begin soap appear demise leader else inhale squirrel rich'
+      // const privateKey = PrivateKey.fromMnemonic(mnemonic, "m/44'/118'/0'/0/0")
+      // const pubkeyMnemo = privateKey.toPubkey()
+      // const sender = pubkeyMnemo.toAddress().toAccBech32()
 
       const obi = new Obi('{symbols:[string],multiplier:u64}/{rates:[u64]}')
       const calldata = obi.encodeInput({ symbols: ['ETH'], multiplier: 1000000 })
       let coin = new Coin()
       coin.setDenom('uband')
-      coin.setAmount('2000')
+      coin.setAmount('200000')
 
       let feeCoin = new Coin()
       feeCoin.setDenom('uband')
-      feeCoin.setAmount('20000')
+      feeCoin.setAmount('200000')
 
       const requestMessage = new Message.MsgRequestData(
         111,
@@ -70,13 +70,15 @@ export default () => {
         16,
         10,
         'BandProtocol',
-        sender,
+        address,
         [coin],
         20000,
         100000
       )
 
-      const account = await client.getAccount(sender)
+      const sendMessage = new Message.MsgSend(address, address, [coin])
+
+      const account = await client.getAccount(address)
       const sequence = account.sequence
 
       const fee = new Fee()
@@ -91,76 +93,71 @@ export default () => {
       txn.withFee(fee)
       txn.withMemo('')
 
-      console.log(txn.msgs[0].toString())
-
       const pubKey = PublicKey.fromHex(Buffer.from(pubKeyU8).toString('hex'))
 
-      console.log(Buffer.from(pubKeyU8).toString('hex') == pubkey.toHex())
-
       const signDoc = txn.getSignDoc(pubKey)
-      const signDoc2 = txn.getSignDoc(pubkey)
 
       const deserializedSignDoc = SignDoc.deserializeBinary(signDoc)
-      const deserializedSignDoc2 = SignDoc.deserializeBinary(signDoc2)
 
-      console.log('gg')
-
-      console.log(Buffer.from(signDoc).toString('hex'))
-      console.log(Buffer.from(deserializedSignDoc.getAuthInfoBytes_asU8()).toString('hex'))
-
-      console.log(
-        Buffer.compare(
-          deserializedSignDoc.getAuthInfoBytes_asU8(),
-          deserializedSignDoc2.getAuthInfoBytes_asU8()
-        )
-      )
-
-      console.log(
-        Buffer.compare(
-          deserializedSignDoc.getBodyBytes_asU8(),
-          deserializedSignDoc2.getBodyBytes_asU8()
-        )
-      )
-
-      console.log(deserializedSignDoc.getChainId())
-      console.log(chainId)
-
-      const plainSignDoc = {
+      const directSignDoc = {
         bodyBytes: deserializedSignDoc.getBodyBytes_asU8(),
         authInfoBytes: deserializedSignDoc.getAuthInfoBytes_asU8(),
         chainId: deserializedSignDoc.getChainId(),
         accountNumber: Long.fromNumber(deserializedSignDoc.getAccountNumber()),
       }
+      const aminoSignDoc = {
+        chain_id: deserializedSignDoc.getChainId(),
+        account_number: deserializedSignDoc.getAccountNumber().toString(),
+        sequence: account.sequence.toString(),
+        fee: {
+          amount: [
+            {
+              denom: 'uband',
+              amount: '50000',
+            } as keplrCoin,
+          ],
+          gas: '200000',
+        },
+        msgs: [sendMessage.toJSON() as Msg],
+        memo: '',
+      }
 
       if (window.keplr) {
-        //   // Enabling before using the Keplr is recommended.
-        //   // This method will ask the user whethe r to allow access if they haven't visited this website.
-        //   // Also, it will request that the user unlock the wallet if the wallet is locked.
-        // const offlineSigner = window.keplr.getOfflineSigner(chainId)
-        console.log('test')
-        console.log((await window.keplr.getKey(chainId)).name)
-        const signer = await window.keplr.getOfflineSigner(chainId)
-        console.log('for god sake')
-        console.log(plainSignDoc)
-        const response = await window.keplr.signDirect(chainId, address, plainSignDoc, {
+        // const response = await window.keplr.signDirect(chainId, address, directSignDoc, {
+        //   preferNoSetFee: true,
+        //   preferNoSetMemo: false,
+        //   disableBalanceCheck: false,
+        // })
+
+        console.log(aminoSignDoc)
+
+        const getSignDoc = (tx: Transaction) => ({
+          account_number: tx.accountNum?.toString() as string,
+          chain_id: tx.chainId as string,
+          fee: {
+            amount: tx.fee.getAmountList().map((coin) => coin.toObject()),
+            gas: tx.fee.getGasLimit().toString(),
+          },
+          memo: tx.memo,
+          msgs: tx.msgs.map((msg) => msg.toJSON()) as Msg[],
+          sequence: tx.sequence?.toString() as string,
+        })
+
+        const response = await window.keplr.signAmino(chainId, address, getSignDoc(txn), {
           preferNoSetFee: true,
           preferNoSetMemo: false,
           disableBalanceCheck: false,
         })
-        // const response = await offlineSigner.signDirect(address, plainSignDoc)
-        console.log(response)
-        // const accounts = await offlineSigner.getAccounts()
-        // console.log(accounts[0])
 
-        const signature = privateKey.sign(signDoc)
-        console.log(signature.toString('base64'))
-        console.log(response.signature.signature)
+        // const signature = privateKey.sign(signDoc)
+        // console.log(signature.toString('base64'))
+        console.log(response)
 
         const txRawBytes = txn.getTxData(
           Buffer.from(response.signature.signature, 'base64'),
-          pubKey
+          pubKey,
+          127
         )
-        // const txRawBytes = txn.getTxData(signature, pubkey)
 
         // Step 4: Broadcast the transaction
         const sendTx = await client.sendTxBlockMode(txRawBytes)
